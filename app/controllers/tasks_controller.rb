@@ -22,13 +22,11 @@ class TasksController < ApplicationController
   # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-
-    if @task.save
-      redirect_to tasks_path,notice: "タスクを作成しました！"
-    else
-      render :new
-    end
-
+    # if @task.save
+    #   redirect_to tasks_path,
+    # else
+    #   render :new
+    # end
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: "Task was successfully created." }
