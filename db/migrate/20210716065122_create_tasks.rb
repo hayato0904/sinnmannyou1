@@ -1,10 +1,10 @@
 class CreateTasks < ActiveRecord::Migration[5.2]
   def change
     create_table :tasks do |t|
-      t. :title
+      t.string :title
       t.text :content
-
       t.timestamps
     end
   end
+  # add_index :tasks, [:title, :content] 
 end
