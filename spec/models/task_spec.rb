@@ -16,7 +16,7 @@ describe 'タスクモデル機能', type: :model do
     context 'タスクの詳細が空の場合' do
       it 'バリデーションにひっかかる' do
         task = Task.new(title: 'リンゴ', content: '' )
-        binding.irb
+        # binding.irb 左記の
         expect(task).not_to be_valid
       end
     end
