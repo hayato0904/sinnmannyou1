@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all
+    @tasks = Task.all.order(created_at: "DESC")
   end
 
   # GET /tasks/1 or /tasks/1.json
@@ -17,6 +17,9 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+
+
+    
   end
 
   # POST /tasks or /tasks.json
