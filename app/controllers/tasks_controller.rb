@@ -3,33 +3,30 @@ class TasksController < ApplicationController
 
   # GET /tasks or /tasks.json
   def index
-    @tasks = Task.all.order(created_at: "DESC")
+    if params[:sort_expired] 
+      @tasks = Task.all.order(expired_at: "ASC")
+    else
+      @tasks = Task.all.order(created_at: "DESC")
+    end
+
   end
 
-  # GET /tasks/1 or /tasks/1.json
   def show
   end
 
-  # GET /tasks/new
   def new
     @task = Task.new
   end
 
-  # GET /tasks/1/edit
   def edit
 
 
     
   end
 
-  # POST /tasks or /tasks.json
   def create
     @task = Task.new(task_params)
-    # if @task.save
-    #   redirect_to tasks_path,
-    # else
-    #   render :new
-    # end
+
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: "Task was successfully created." }
@@ -41,7 +38,6 @@ class TasksController < ApplicationController
     end
   end
 
-  # PATCH/PUT /tasks/1 or /tasks/1.json
   def update
     respond_to do |format|
       if @task.update(task_params)
@@ -54,7 +50,6 @@ class TasksController < ApplicationController
     end
   end
 
-  # DELETE /tasks/1 or /tasks/1.json
   def destroy
     @task.destroy
     respond_to do |format|
@@ -64,13 +59,11 @@ class TasksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def task_params
-      params.require(:task).permit(:title, :content)
+      params.require(:task).permit(:title, :content, :expired_at)
     end
-end
+  end
