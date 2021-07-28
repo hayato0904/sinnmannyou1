@@ -4,7 +4,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
-    FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント')
+    FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-1')
   end
   describe '一覧表示機能' do
     context '一覧画面に遷移した場合' do
@@ -27,10 +27,11 @@ RSpec.describe 'タスク管理機能', type: :system do
         # task2 = FactoryBot.create(:task, title: 'task2')
         visit tasks_path
         task3 = all('.task_row')
+        # binding.pry
         expect(task3[0]).to have_content 'ごはんをたべる' 
-        expect(task3[1]).to have_content '塩ラーメン' 
-        expect(task3[2]).to have_content '味噌ラーメン' 
-        expect(task3[3]).to have_content '醤油ラーメン' 
+        expect(task3[1]).to have_content '付け加えた名前３' 
+        expect(task3[2]).to have_content 'Factoryで作ったデフォルトのタイトル２' 
+        expect(task3[3]).to have_content 'ごはんをたべる' 
       end
     end
   end
@@ -40,15 +41,49 @@ RSpec.describe 'タスク管理機能', type: :system do
         visit new_task_path
         fill_in :task_title, with: 'メロン'
         fill_in :task_content, with: '味噌ラーメン'
+        select '2021', from: 'task[expired_at(1i)]'
+        select '10月', from: 'task[expired_at(2i)]'
+        select '20', from: 'task[expired_at(3i)]'
         click_on "登録する"
         expect(page).to have_content "メロン" # タスク詳細画面に"メロン"の文字列があることを証明する
         click_on "Back"
         expect(page).to have_content "メロン" # タスク一覧画面にメロンと味噌ラーメンの文字列が含まれていることを証明する
         expect(page).to have_content "味噌ラーメン"
+        expect(page).to have_content "2021-10-20"
       end
     end
   end
 
+  describe '終了期限のカラム追加機能' do
+    context '日時を入力した場合' do
+      it '日時が表示される' do
+        visit new_task_path
+        fill_in :task_title, with: 'メロン'
+        fill_in :task_content, with: '味噌ラーメン'
+        select '2021', from: 'task[expired_at(1i)]'
+        select '10月', from: 'task[expired_at(2i)]'
+        select '20', from: 'task[expired_at(3i)]'
+        click_on "登録する"
+        expect(page).to have_content "2021-10-20" # タスク詳細画面に"2021-06-20"の文字列があることを証明する
+      end
+    end
+  end
+
+  describe '終了期限ソート機能' do
+    context '終了期限でソートするというリンクを押すと' do
+      it '終了期限の降順に並び替えられたタスク一覧が表示される' do
+        visit tasks_path
+        click_on '終了期限でソートする' 
+        # , match: :first
+        task4 = all('.task_row')
+        expect(task4[0]).to have_content '2021-07-28'
+        expect(task4[1]).to have_content '2021-07-30'
+      end
+    end
+  end
+
+
+  
 
 end
 
