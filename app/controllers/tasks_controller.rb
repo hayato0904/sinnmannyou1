@@ -5,6 +5,9 @@ class TasksController < ApplicationController
   def index
     if params[:sort_expired] 
       @tasks = Task.all.order(expired_at: "ASC")
+    elsif params[:title]
+      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
+  
     else
       @tasks = Task.all.order(created_at: "DESC")
     end
@@ -64,6 +67,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :content, :expired_at, :status)
+      params.require(:task).permit(:title, :content, :expired_at, :status, :task)
+      # なぜタスクを追加したんだろう？
     end
   end
