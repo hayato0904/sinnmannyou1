@@ -2,6 +2,16 @@
 
 <h1>Tasks</h1>
 
+<%= form_with(model: Task.new, local: true) do |form| %>
+<%# indexだと色がかわらない %>
+  <div class="task_title">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+  
+  <%= form.submit %>
+<% end %>
+
 <table>
   <thead>
     <tr>
