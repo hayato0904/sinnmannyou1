@@ -68,6 +68,6 @@ class TasksController < ApplicationController
 
     def task_params
       params.require(:task).permit(:title, :content, :expired_at, :status, :task)
-      # なぜタスクを追加したんだろう？
+      # □なぜタスクを追加したんだろう？
     end
   end
