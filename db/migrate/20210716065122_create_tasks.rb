@@ -4,14 +4,11 @@ class CreateTasks < ActiveRecord::Migration[5.2]
       t.string :title
       t.text :content
       t.date :expired_at
-      t.string :status
       t.timestamps
     end
   end
   # add_index :tasks, [:title, :content] 
 end
-
-
 
 # t.expired_at :date
 # 上記のコードだdownになったマイグレーションファイルがupにならない。

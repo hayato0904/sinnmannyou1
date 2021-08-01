@@ -2,14 +2,16 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
 
   # GET /tasks or /tasks.json
+  # あいまい検索ボタンを押した時に上手く処理ができていない。
   def index
     if params[:sort_expired] 
       @tasks = Task.all.order(expired_at: "ASC")
-    elsif params[:title]
-      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
-  
     else
       @tasks = Task.all.order(created_at: "DESC")
+    end
+    
+    if params[:title]
+      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
     end
 
   end

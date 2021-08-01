@@ -1,13 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <h1>タスク一覧画面</h1>
-
-<%# ◇なぜtasks_pathからscope: taskに変更したのだろうか？ %>
-<%= form_with(url: scope: task, method: :get, local: true) do |form| %>
+  <%= form_with( url: tasks_path, method: :get, local: true) do |form| %>
   <%= form.label :タスク名 %>
-  <%= form.search_field :title %>
+  <%= form.text_field :title %>
   <%= form.label :ステータス %>
-  <%# プルダウンで選択できるようにしている。 %>
+  <%# プルダウンで選択できるようにしている%>
   <%= form.select :status, [["未着手","未着手"],["着手中","着手中"],["完了","完了"]] %>
   <%= form.submit '検索' %>
 <% end %>
