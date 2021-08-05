@@ -12,6 +12,7 @@ class TasksController < ApplicationController
     
     if params[:title]
       @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
+      .where(status: params[:status])
     end
 
   end

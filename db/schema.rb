@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2021_07_16_065122) do
     t.string "title"
     t.text "content"
     t.date "expired_at"
+    t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
