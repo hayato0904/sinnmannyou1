@@ -6,9 +6,13 @@
   <%= form.text_field :title %>
   <%= form.label :ステータス %>
   <%# プルダウンで選択できるようにしている%>
+<<<<<<< HEAD
   <%= form.select :status, Task.statuses.keys.to_a, {} %>
   <%# 上記一行はメソッドエラーが出た。Tasks#indexでこれらを受け取る設定をしてあげなければいけない。 %>
   <%# 9行目が当たっている確信がcontrollerでただしく受け取らない限りわからない。 %>
+=======
+  <%= form.select :status, [["未着手","未着手"],["着手中","着手中"],["完了","完了"]] %>
+>>>>>>> 464e8582b50b892786d0a6fa9d5dbbff0535df97
   <%= form.submit '検索' %>
 <% end %>
 

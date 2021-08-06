@@ -10,7 +10,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
         # テストで使用するためのタスクを作成
-        task = FactoryBot.create(:task)
+        task = FactoryBot.create(:task)git 
         # タスク一覧ページに遷移
         visit tasks_path
         # visitした（遷移した）page（タスク一覧ページ）に「task」という文字列が
@@ -92,7 +92,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
   end
-
+# aiii
 end
 
 
