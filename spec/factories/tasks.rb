@@ -4,6 +4,7 @@ FactoryBot.define do
     title { 'ごはんをたべる' }
     content { '味噌汁をのむ' }
     expired_at {'2021-07-30'}
+    status {'未着手'}
   end
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
@@ -11,6 +12,7 @@ FactoryBot.define do
     title { 'Factoryで作ったデフォルトのタイトル２' }
     content { 'Factoryで作ったデフォルトのコンテント２' }
     expired_at {'2021-07-28'}
+    status {'未着手'}
 
   end
 end

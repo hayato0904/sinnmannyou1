@@ -4,20 +4,10 @@ class TasksController < ApplicationController
   # GET /tasks or /tasks.json
   # あいまい検索ボタンを押した時に上手く処理ができていない。
   def index
-    if params[:sort_expired] 
-      @tasks = Task.all.order(expired_at: "ASC")
-    else
-      @tasks = Task.all.order(created_at: "DESC")
-    end
-    
-    if params[:title]
-      @tasks = Task.where('title LIKE ?', "%#{params[:title]}%")
-<<<<<<< HEAD
-      .where(status: params[:status])
-=======
->>>>>>> 464e8582b50b892786d0a6fa9d5dbbff0535df97
-    end
-
+    @tasks = Task.all
+    @tasks = @tasks.order(expired_at: "ASC") if params[:sort_expired]
+    @tasks = @tasks.where('title LIKE ?', "%#{params[:title]}%") if params[:title]
+    @tasks = @tasks.where(status: params[:status]) if params[:status] && params[:status] != ""
   end
 
   def show

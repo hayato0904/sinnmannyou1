@@ -20,7 +20,7 @@ RSpec.configure do |config|
         options.add_argument('no-sandbox')
       end
     end
-  endd
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

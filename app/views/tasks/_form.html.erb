@@ -28,7 +28,7 @@
   
   <div class = "status-field">
     <%= form.label :ステータス %>
-    <%= form.select :status, [["未着手","未着手"],["着手中","着手中"],["完了","完了"]] %>
+    <%= form.select :status, Task.statuses.keys, include_blank: true %>
   </div>
 
   <div class="actions">

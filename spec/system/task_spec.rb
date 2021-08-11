@@ -4,7 +4,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
-    FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-1')
+    FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-01')
   end
   describe '一覧表示機能' do
     context '一覧画面に遷移した場合' do
@@ -19,6 +19,7 @@ RSpec.describe 'タスク管理機能', type: :system do
         # expectの結果が true ならテスト成功、false なら失敗として結果が出力される
       end
     end
+  end
 
     # テスト内容を追加で記載する
     context 'タスクが作成日時の降順に並んでいる場合' do
@@ -72,28 +73,32 @@ RSpec.describe 'タスク管理機能', type: :system do
   describe '終了期限ソート機能' do
     context '終了期限でソートするというリンクを押すと' do
       it '終了期限の降順に並び替えられたタスク一覧が表示される' do
+        FactoryBot.create(:task)
+        FactoryBot.create(:second_task)
+        FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-01')
         visit tasks_path
         click_on '終了期限でソートする' 
-        # , match: :first
         task4 = all('.task_row')
         expect(task4[0]).to have_content '2021-07-28'
         expect(task4[1]).to have_content '2021-07-30'
       end
     end
   end
+  # 上記までOK
 
   describe '検索機能' do
     context 'タイトルであいまい検索をした場合' do
-      it "検索キーワードを含むタスクで絞り込まれる" do
+      it '検索キーワードを含むタスクで絞り込まれる' do
+        FactoryBot.create(:task)
+        FactoryBot.create(:second_task)
+        FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-01')
         visit tasks_path
-        fill_in :title, with: 'メロンケーキ'
-        click_on '検索'
-        expect(page).to have_content 'メロンケーキ'
+        fill_in :title, with: 'ごはん'
+        click_on '検索' 
+        expect(page).to have_content 'ごはんをたべる'
       end
     end
   end
-
-end
 
 
 
