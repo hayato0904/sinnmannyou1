@@ -1,13 +1,25 @@
 class TasksController < ApplicationController
   before_action :set_task, only: %i[ show edit update destroy ]
 
-  # GET /tasks or /tasks.json
-  # あいまい検索ボタンを押した時に上手く処理ができていない。
+  
+  # わかったこと
+  # ・scopeとは、クラスメソッドを使う際、可読性を保つためにあるもの
+  # ・書き方(Qiita見ながら)
+  # ・viewから値を取ってくる　→ コントローラに渡す → コントローラ側で、scopeで使える形に変換　→ 　scopeに渡す
+  # わからないところ。
+  # ・viewから値をとってくる。とQiitaに記載されていたが、どうやって！どのようにして！
+  # ・モデルを使うイメージがあったが。。。
+
+
+
   def index
     @tasks = Task.all
     @tasks = @tasks.order(expired_at: "ASC") if params[:sort_expired]
-    @tasks = @tasks.where('title LIKE ?', "%#{params[:title]}%") if params[:title]
-    @tasks = @tasks.where(status: params[:status]) if params[:status] && params[:status] != ""
+    @tasks = @tasks.abc(params[:title]).def(params[:status]) if params[:title].present? && params[:status].present?
+    @tasks = @tasks.abc(params[:title]) if params[:title].present?
+    @tasks = @tasks.def(params[:status]) if params[:status].present?
+    # 18行目の続き    .present? && params[:status] != ""
+    # 21行目の続き && params[:status] != ""
   end
 
   def show
