@@ -2,6 +2,7 @@ class Task < ApplicationRecord
         validates :title, presence: true
         validates :content, presence: true
         enum status: {未着手:0, 着手中:1, 完了:2}
+        enum priority: {高:0, 中:1, 低:2}
         scope :abc, ->(params_title) { where('title LIKE ?', "%#{params_title}%")}
         scope :def, ->(params_status) { where(status: params_status)}
 

@@ -75,7 +75,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :content, :expired_at, :status, :task)
+      params.require(:task).permit(:title, :content, :expired_at, :status, :task, :priority)
       # □なぜタスクを追加したんだろう？
     end
   end
