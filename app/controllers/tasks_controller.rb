@@ -15,9 +15,11 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
     @tasks = @tasks.order(expired_at: "ASC") if params[:sort_expired]
+    @tasks = @tasks.order(priority: "ASC") if params[:sort_priority]
     @tasks = @tasks.abc(params[:title]).def(params[:status]) if params[:title].present? && params[:status].present?
     @tasks = @tasks.abc(params[:title]) if params[:title].present?
     @tasks = @tasks.def(params[:status]) if params[:status].present?
+
     # 18行目の続き    .present? && params[:status] != ""
     # 21行目の続き && params[:status] != ""
   end

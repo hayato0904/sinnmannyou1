@@ -31,9 +31,9 @@
     <%= form.select :status, Task.statuses.keys, include_blank: true %>
   </div>
 
-    <div class = "priority-field">
+  <div class = "priority-field">
     <%= form.label :優先度 %>
-    <%= form.select :status, Task.statuses.keys, include_blank: true %>
+    <%= form.select :priority, Task.priorities.keys, include_blank: true %>
   </div>
 
   

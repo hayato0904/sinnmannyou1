@@ -10,7 +10,7 @@
   <%# 上記一行はメソッドエラーが出た。Tasks#indexでこれらを受け取る設定をしてあげなければいけない。 %>
   <%# 9行目が当たっている確信がcontrollerでただしく受け取らない限りわからない。 %>
   <%= form.label :優先度 %>
-  <%= form.select :status, Task.statuses.keys, include_blank: true %>
+  <%= form.select :priority, Task.priorities.keys, include_blank: true %>
   <%= form.submit '検索',class:'kennsaku',id:'123' %>
 <% end %>
 
@@ -47,3 +47,4 @@
 
 <%= link_to '新規タスク登録', new_task_path %>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
+<%= link_to "優先度をソートする", tasks_path(sort_priority: "true") %>
