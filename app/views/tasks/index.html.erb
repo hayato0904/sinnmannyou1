@@ -1,5 +1,6 @@
 <p id="notice"><%= notice %></p>
 
+
 <h1>タスク一覧画面</h1>
   <%= form_with( url: tasks_path, method: :get, local: true) do |form| %>
   <%= form.label :タスク名 %>
@@ -42,6 +43,8 @@
     <% end %>
   </tbody>
 </table>
+<%= paginate(@tasks) %>
+<%# 上記はkaminariのview側に表示するための処理である。 %>
 
 <br>
 
