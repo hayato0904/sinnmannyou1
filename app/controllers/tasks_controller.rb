@@ -20,7 +20,7 @@ class TasksController < ApplicationController
     @tasks = @tasks.abc(params[:title]).def(params[:status]) if params[:title].present? && params[:status].present?
     @tasks = @tasks.abc(params[:title]) if params[:title].present?
     @tasks = @tasks.def(params[:status]) if params[:status].present?
-    @tasks = @tasks.page(params[:page]).per(3)
+    @tasks = @tasks.page(params[:page]).per(6)
 
     # 18行目の続き    .present? && params[:status] != ""
     # 21行目の続き && params[:status] != ""
