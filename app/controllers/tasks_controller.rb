@@ -5,7 +5,7 @@ class TasksController < ApplicationController
   # わかったこと
   # ・scopeとは、クラスメソッドを使う際、可読性を保つためにあるもの
   # ・書き方(Qiita見ながら)
-  # ・viewから値を取ってくる　→ コントローラに渡す → コントローラ側で、scopeで使える形に変換　→ 　scopeに渡す
+  # ・viewから値を取ってくる　→ コントローラに渡す → コントローラ側で、scopeで使える形に変換→scopeに渡す
   # わからないところ。
   # ・viewから値をとってくる。とQiitaに記載されていたが、どうやって！どのようにして！
   # ・モデルを使うイメージがあったが。。。
@@ -13,18 +13,33 @@ class TasksController < ApplicationController
 
 
   def index
-    @tasks = Task.all
+    # @tasks = Task.all
+#     pp '--------------------'
+# pp params
+# pp '--------------------'
+# pp 'ttttttttttttttttttttttttttttttttt'
+# pp params[:sort_expired]
+# pp 'tttttttttttttttttttttt'
+
     @tasks = Task.all.order(created_at: :desc)
-    @tasks = @tasks.order(expired_at: "ASC") if params[:sort_expired]
-    pp @tasks
-    @tasks = @tasks.order(priority: "ASC") if params[:sort_priority]
+#     pp '+++++++++++++++++++++'
+# pp @tasks
+# pp '+++++++++++++++++++++'
+
+    @tasks = @tasks.all.reorder(expired_at: :desc) if params[:sort_expired]
+#     pp '~~~~~~~~~~~~~~~~'
+# pp params[:sort_expired]
+# pp '~~~~~~~~~~~~~~~~'
+# pp '====================='
+# pp @tasks
+# pp '====================='
+
+    # binding.pry
+    @tasks = @tasks.reorder(priority: :asc) if params[:sort_priority]
     @tasks = @tasks.abc(params[:title]).def(params[:status]) if params[:title].present? && params[:status].present?
     @tasks = @tasks.abc(params[:title]) if params[:title].present?
     @tasks = @tasks.def(params[:status]) if params[:status].present?
     @tasks = @tasks.page(params[:page]).per(6)
-
-    # 18行目の続き    .present? && params[:status] != ""
-    # 21行目の続き && params[:status] != ""
   end
 
   def show
