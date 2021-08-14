@@ -15,7 +15,8 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
     # 上記はkaminariである。
-    @tasks = @tasks.order(expired_at: "ASC") if params[:sort_expired]
+    @tasks = @tasks.order(expired_at: "DESC") if params[:sort_expired]
+    pp @tasks
     @tasks = @tasks.order(priority: "ASC") if params[:sort_priority]
     @tasks = @tasks.abc(params[:title]).def(params[:status]) if params[:title].present? && params[:status].present?
     @tasks = @tasks.abc(params[:title]) if params[:title].present?

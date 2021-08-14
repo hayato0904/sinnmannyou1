@@ -21,14 +21,14 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
-    # テスト内容を追加で記載する
+    #テスト通らない。その処理がどこで書かれているのか、どのタイミングで実装したのか見当もつかない。
     context 'タスクが作成日時の降順に並んでいる場合' do
       it '新しいタスクが一番上に表示される' do
         task1 = FactoryBot.create(:task)
         # task2 = FactoryBot.create(:task, title: 'task2')
         visit tasks_path
         task3 = all('.task_row')
-        # binding.pry
+        binding.pry
         expect(task3[0]).to have_content 'ごはんをたべる' 
         expect(task3[1]).to have_content '付け加えた名前３' 
         expect(task3[2]).to have_content 'Factoryで作ったデフォルトのタイトル２' 
@@ -36,6 +36,7 @@ RSpec.describe 'タスク管理機能', type: :system do
       end
     end
   end
+
   describe '新規作成機能' do
     context 'タスクを新規作成した場合' do
       it '作成したタスクが表示される' do
