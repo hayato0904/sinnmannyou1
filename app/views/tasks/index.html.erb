@@ -12,7 +12,7 @@
   <%# 9行目が当たっている確信がcontrollerでただしく受け取らない限りわからない。 %>
   <%= form.label :優先度 %>
   <%= form.select :priority, Task.priorities.keys, include_blank: true %>
-  <%= form.submit '検索',class:'kennsaku',id:'123' %>
+  <%= form.submit '検索' %>
 <% end %>
 
 <table>
@@ -33,7 +33,7 @@
       <tr class= "task_row">
         <td><%= task.title %></td>
         <td><%= task.content %></td>
-        <td><%= task.expired_at %></td>
+        <td class = "task_expired_at"><%= task.expired_at %></td>
         <td><%= task.status %></td>
         <td><%= task.priority %></td>
         <td><%= link_to '詳細', task %></td>
@@ -50,5 +50,4 @@
 
 <%= link_to '新規タスク登録', new_task_path %>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
-<%= sleep(0.5) %>
 <%= link_to "優先度をソートする", tasks_path(sort_priority: "true") %>

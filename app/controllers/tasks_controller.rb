@@ -9,36 +9,13 @@ class TasksController < ApplicationController
   # わからないところ。
   # ・viewから値をとってくる。とQiitaに記載されていたが、どうやって！どのようにして！
   # ・モデルを使うイメージがあったが。。。
-
-
-
   def index
-    # @tasks = Task.all
-#     pp '--------------------'
-# pp params
-# pp '--------------------'
-# pp 'ttttttttttttttttttttttttttttttttt'
-# pp params[:sort_expired]
-# pp 'tttttttttttttttttttttt'
-
     @tasks = Task.all.order(created_at: :desc)
-#     pp '+++++++++++++++++++++'
-# pp @tasks
-# pp '+++++++++++++++++++++'
-
     @tasks = @tasks.all.reorder(expired_at: :desc) if params[:sort_expired]
-#     pp '~~~~~~~~~~~~~~~~'
-# pp params[:sort_expired]
-# pp '~~~~~~~~~~~~~~~~'
-# pp '====================='
-# pp @tasks
-# pp '====================='
-
-    # binding.pry
-    @tasks = @tasks.reorder(priority: :asc) if params[:sort_priority]
     @tasks = @tasks.abc(params[:title]).def(params[:status]) if params[:title].present? && params[:status].present?
     @tasks = @tasks.abc(params[:title]) if params[:title].present?
     @tasks = @tasks.def(params[:status]) if params[:status].present?
+    @tasks = @tasks.reorder(priority: :asc) if params[:sort_priority]
     @tasks = @tasks.page(params[:page]).per(6)
   end
 

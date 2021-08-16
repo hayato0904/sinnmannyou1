@@ -4,7 +4,7 @@ RSpec.describe 'タスク管理機能', type: :system do
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
-    FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-01')
+    FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-01', status: '未着手')
   end
   describe '一覧表示機能' do
     context '一覧画面に遷移した場合' do
@@ -78,15 +78,15 @@ RSpec.describe 'タスク管理機能', type: :system do
         FactoryBot.create(:second_task)
         FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-01')
         visit tasks_path
-        # sleep(50)
-        click_on '終了期限でソートする' 
-        task4 = all('.task_row')
-        expect(task4[0]).to have_content '2021-07-28'
+        click_on '終了期限でソートする'
+        task4 = all('.task_expired_at')
+        # binding.pry
+        sleep 3
         expect(task4[1]).to have_content '2021-07-30'
+        expect(task4[2]).to have_content '2021-07-28'
       end
     end
   end
-  # 上記までOK
 
   describe '検索機能' do
     context 'タイトルであいまい検索をした場合' do
@@ -102,5 +102,23 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
+  describe '検索機能' do
+    context 'ステータス検索をした場合' do
+      it 'ステータスに完全一致するタスクが絞り込まれる' do
+        FactoryBot.create(:task)
+        FactoryBot.create(:second_task)
+        FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-01')
+        visit tasks_path
+        # binding.pry
+        # select '未着手', from: 'task[status]'
+        select '未着手', from: '[["status", 0]'
+        binding.pry
+        # binding.pryがここで引っかからなかったため、ここまで処理が来ていない。
+        click_on '検索' 
+        task5 = all('.task_row')
+        expect(task5[0]).to have_content '未着手'
+      end
+    end
+  end
 
 
