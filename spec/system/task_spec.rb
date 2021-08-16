@@ -109,11 +109,8 @@ RSpec.describe 'タスク管理機能', type: :system do
         FactoryBot.create(:second_task)
         FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-01')
         visit tasks_path
+        select '未着手', from: 'status'
         # binding.pry
-        # select '未着手', from: 'task[status]'
-        select '未着手', from: '[["status", 0]'
-        binding.pry
-        # binding.pryがここで引っかからなかったため、ここまで処理が来ていない。
         click_on '検索' 
         task5 = all('.task_row')
         expect(task5[0]).to have_content '未着手'
@@ -121,4 +118,18 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
-
+  describe '検索機能' do
+    context 'タイトルのあいまい検索とステータス検索をした場合' do
+      it '検索キーワードを含み、かつステータスに完全一致するタスク振り込まれる' do
+        FactoryBot.create(:task)
+        FactoryBot.create(:second_task)
+        FactoryBot.create(:second_task, title: '付け加えた名前３', content: '付け加えたコンテント', expired_at: '2021-08-01')
+        visit tasks_path
+        fill_in :title, with: 'ごはん' 
+        select '未着手', from: 'status'
+        click_on '検索' 
+        task6 = all('.task_row')
+        expect(task6[0]).to have_content '未着手' && 'ごはんをたべる' 
+      end
+    end
+  end
