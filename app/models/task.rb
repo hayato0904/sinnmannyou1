@@ -5,7 +5,7 @@ class Task < ApplicationRecord
         enum priority: {高:0, 中:1, 低:2}
         scope :abc, ->(params_title) { where('title LIKE ?', "%#{params_title}%")}
         scope :def, ->(params_status) { where(status: params_status)}
-        belongs_to ;user
+        belongs_to :user
 
         # @tasks = @tasks.where(status: params[:status]) if params[:status] && params[:status] != ""
 

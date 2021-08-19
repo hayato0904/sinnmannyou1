@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  skip_before_action :login_required, only: [:new, :create]
   before_action :set_task, only: %i[ show edit update destroy ]
 
   
@@ -10,7 +11,7 @@ class TasksController < ApplicationController
   # ・viewから値をとってくる。とQiitaに記載されていたが、どうやって！どのようにして！
   # ・モデルを使うイメージがあったが。。。
   def index
-    @tasks = Task.all.order(created_at: :desc)
+    @tasks = current_user.tasks.order(created_at: :desc)
     @tasks = @tasks.all.reorder(expired_at: :desc) if params[:sort_expired]
     @tasks = @tasks.abc(params[:title]).def(params[:status]) if params[:title].present? && params[:status].present?
     @tasks = @tasks.abc(params[:title]) if params[:title].present?
@@ -33,8 +34,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
-
+    @task = current_user.tasks.build(task_params) #current_user.blogs.build は「ログイン中のユーザの、blogをbuild(new)する」という意味です。
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: "Task was successfully created." }
