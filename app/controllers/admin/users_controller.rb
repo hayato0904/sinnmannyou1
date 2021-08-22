@@ -43,6 +43,12 @@ class Admin::UsersController < ApplicationController
         render :edit
     end
   end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to admin_users_path, notice:"ブログを削除しました！"
+  end
   
       def user_params
         params.require(:user).permit(:name, :email, :password,
