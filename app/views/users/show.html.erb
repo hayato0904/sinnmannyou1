@@ -3,3 +3,34 @@
 <td><%= link_to '～そしてタスク管理へ～', tasks_path %></td>
 
 <td>ひもついているタスクの数<%= @tasks.count %></td>
+
+<table>
+  <thead>
+    <tr>
+      <th>投稿者</th>
+      <th>タスク</th>
+      <th>内容</th>
+      <th>終了期限</th>
+      <th>ステータス</th>
+      <th>優先度</th>
+      <th colspan="4"></th>
+      <%# コールスパンて何だよ！ %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tasks.each do |task| %>
+      <tr class= "task_row">
+        <td><%= task.user.name %></td>
+        <td><%= task.title %></td>
+        <td><%= task.content %></td>
+        <td class = "task_expired_at"><%= task.expired_at %></td>
+        <td><%= task.status %></td>
+        <td><%= task.priority %></td>
+        <td><%= link_to '詳細', task %></td>
+        <td><%= link_to '編集', edit_task_path(task) %></td>
+        <td><%= link_to '削除', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
