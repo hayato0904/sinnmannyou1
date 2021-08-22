@@ -1,3 +1,5 @@
 <h1><%= @user.name %>のページ</h1>
 <p>メールアドレス: <%= @user.email %></p>
 <td><%= link_to '～そしてタスク管理へ～', tasks_path %></td>
+
+<td>ひもついているタスクの数<%= @tasks.count %></td>
