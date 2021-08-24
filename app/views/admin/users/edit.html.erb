@@ -4,39 +4,45 @@
     <% if @user.errors.any? %>
         <div id="error_explanation">
             <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+            
+            <ul>
+            <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+            </ul>
+            </div>
+            <% end %>
+            <div class="field">
+            <%= form.label :name, '名前' %>
+            <%= form.text_field :name %>
+            </div>
+            <div class="field">
+            <%= form.label :email, 'メールアドレス' %>
+            <%= form.text_field :email %>
+            </div>
+            <div class="field">
+            <%= form.label :password, 'パスワード' %>
+            <%= form.password_field :password %>
+            </div>
+            
+            <div class = "field">
+            <%= form.label :password_confirmation, 'パスワード確認' %>
+            <%= form.password_field :password_confirmation %>
+            
+            </div>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name, '名前' %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email, 'メールアドレス' %>
-    <%= form.text_field :email %>
-  </div>
-
-    <div class="field">
-    <%= form.label :password, 'パスワード' %>
-    <%= form.password_field :password %>
-  </div>
-  
-  <div class = "field">
-    <%= form.label :password_confirmation, 'パスワード確認' %>
-    <%= form.password_field :password_confirmation %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+             <div class = "field">
+        <%= form.label :管理者権限 %>
+  <%= form.select :admin, [["管理者","true"],["一般","false"]] %>
+            
+            </div>
+            
+            <div class="actions">
+            <%= form.submit %>
+            
+            </div>
+            
+            <% end %>
 
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', admin_users_path %>

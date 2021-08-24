@@ -1,5 +1,6 @@
 class Admin::UsersController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
+  before_action :admin_user
   # skip_before_action :admin_user
   # 上記ArgumentErrorが発生した。
   # login?required が定義されていないとケラー分が出ている。
@@ -45,12 +46,25 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  # def final_admin_destroy
+  #   @user = User.find(params[:id])
+  #   if @user.destroy
+  #   redirect_to admin_users_path, notice:"ブログを削除しました！"
+  #   else 
+  #     redirect_to admin_users_path, notice:"きえて"
+  #   end
+  # end
+
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
+    if @user.destroy
     redirect_to admin_users_path, notice:"ブログを削除しました！"
+    else 
+      redirect_to admin_users_path, notice:"なぜか消せませんでした。"
+    end
   end
 
+  private
   def admin_user
     unless current_user.admin?
       redirect_to tasks_path
@@ -61,7 +75,7 @@ class Admin::UsersController < ApplicationController
   
       def user_params
         params.require(:user).permit(:name, :email, :password,
-          :password_confirmation)
+          :password_confirmation, :admin)
         end
   end
   

@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
-  before_action :admin_user
   # 上記ArgumentErrorが発生した。
   # login?required が定義されていないとケラー分が出ている。
   # 仮説：login_requiredが存在しているかを確認すべきである。
@@ -25,18 +24,10 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @tasks = @user.tasks
   end
-
+      private
     def user_params
       params.require(:user).permit(:name, :email, :password,
-        :password_confirmation)
+        :password_confirmation, :admin)
       end
 
-      private
-      def admin_user
-        unless current_user.admin?
-          redirect_to tasks_path
-          flash[:notice] = '管理者以外はアクセスできない'
-        end
-      end
-      
 end
