@@ -5,19 +5,28 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-2.times do |n|
-  name = Faker::Games::Pokemon.name
-  email = Faker::Internet.email
-  password = "password"
-  User.create!(
-    name: name,
-    email: email,
-    password: password,
-  )
-end
+# 2.times do |n|
+#   name = Faker::Games::Pokemon.name
+#   email = Faker::Internet.email
+#   password = "password"
+#   User.create!(
+#     name: name,
+#     email: email,
+#     password: password,
+#   )
+# end
 
-User.create!(name:  "管理者",
-  email: "admin1@example.jp",
-  password: "11111111",
-  password_confirmation: "11111111",
-  admin: true)
+# User.create!(name:  "管理者",
+#   email: "admin1@example.jp",
+#   password: "11111111",
+#   password_confirmation: "11111111",
+#   admin: true)
+
+  Label.create([
+    { name: 'Ruby' },
+    { name: 'Ruby on Rails4' },
+    { name: 'Ruby on Rails5' },
+    { name: 'Python2' },
+    { name: 'Python3' },
+    { name: 'Django2' },
+  ])
