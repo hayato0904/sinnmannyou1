@@ -17,6 +17,7 @@ class TasksController < ApplicationController
     @tasks = @tasks.abc(params[:title]) if params[:title].present?
     @tasks = @tasks.def(params[:status]) if params[:status].present?
     @tasks = @tasks.reorder(priority: :asc) if params[:sort_priority]
+    @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
     @tasks = @tasks.page(params[:page]).per(6)
   end
 
