@@ -72,7 +72,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :content, :expired_at, :status, :task, :priority)
+      params.require(:task).permit(:title, :content, :expired_at, :status, :task, :priority, { label_ids: [] })
       # □なぜタスクを追加したんだろう？
     end
   end
