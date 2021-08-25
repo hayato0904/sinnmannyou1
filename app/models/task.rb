@@ -6,7 +6,8 @@ class Task < ApplicationRecord
         scope :abc, ->(params_title) { where('title LIKE ?', "%#{params_title}%")}
         scope :def, ->(params_status) { where(status: params_status)}
         belongs_to :user 
-
+        has_many :labellings, dependent: :destroy
+        has_many :labels, through: :labellings
         # @tasks = @tasks.where(status: params[:status]) if params[:status] && params[:status] != ""
 
         # abcを定義した。引数はparams.
