@@ -5,6 +5,7 @@ FactoryBot.define do
     content { '味噌汁をのむ' }
     expired_at {'2021-07-30'}
     status {'未着手'}
+    association :user
   end
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
@@ -13,6 +14,6 @@ FactoryBot.define do
     content { 'Factoryで作ったデフォルトのコンテント２' }
     expired_at {'2021-07-28'}
     status {'未着手'}
-
+    user_id {User.first.id}
   end
 end

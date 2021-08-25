@@ -18,6 +18,7 @@
 <table>
   <thead>
     <tr>
+      <th>投稿者</th>
       <th>タスク</th>
       <th>内容</th>
       <th>終了期限</th>
@@ -31,6 +32,7 @@
   <tbody>
     <% @tasks.each do |task| %>
       <tr class= "task_row">
+        <td><%= task.user.name %></td>
         <td><%= task.title %></td>
         <td><%= task.content %></td>
         <td class = "task_expired_at"><%= task.expired_at %></td>
@@ -51,3 +53,4 @@
 <%= link_to '新規タスク登録', new_task_path %>
 <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true") %>
 <%= link_to "優先度をソートする", tasks_path(sort_priority: "true") %>
+<%= link_to "管理者画面へ移動する",admin_users_path %>
