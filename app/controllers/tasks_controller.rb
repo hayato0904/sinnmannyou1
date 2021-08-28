@@ -36,6 +36,7 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params) #current_user.blogs.build は「ログイン中のユーザの、blogをbuild(new)する」という意味です。
+    binding.pry
     respond_to do |format|
       if @task.save
         format.html { redirect_to @task, notice: "Task was successfully created." }
