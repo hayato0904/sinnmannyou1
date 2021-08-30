@@ -6,7 +6,7 @@ class Task < ApplicationRecord
         scope :search_title, -> (params_title) { where('title LIKE ?', "%#{params_title}%")}
         scope :search_status, -> (params_status) { where(status: params_status)}
         scope :search_label, -> (params_label) {
-                task_ids = Labelling.where(label_id: params_label).pluck(.label_id)
+                task_ids = Labelling.where(label_id: params_label).pluck(:task_id)
                 where(id: task_ids)
         }
         belongs_to :user 
