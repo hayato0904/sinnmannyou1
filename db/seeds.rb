@@ -12,7 +12,7 @@
   User.create!(
     name: name,
     email: email,
-    password: password,
+    password: password
   )
 end
 
@@ -28,5 +28,5 @@ User.create!(name:  "管理者",
     { name: 'Ruby on Rails5' },
     { name: 'Python2' },
     { name: 'Python3' },
-    { name: 'Django2' },
+    { name: 'Django2' }
   ])
