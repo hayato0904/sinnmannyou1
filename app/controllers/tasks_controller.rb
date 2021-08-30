@@ -12,11 +12,13 @@ class TasksController < ApplicationController
   # ・モデルを使うイメージがあったが。。。
   def index
     @tasks = current_user.tasks.order(created_at: :desc)
-    @tasks = @tasks.all.reorder(expired_at: :desc) if params[:sort_expired]
-    @tasks = @tasks.abc(params[:title]).def(params[:status]) if params[:title].present? && params[:status].present?
-    @tasks = @tasks.abc(params[:title]) if params[:title].present?
-    @tasks = @tasks.def(params[:status]) if params[:status].present?
+    @tasks = @tasks.reorder(expired_at: :desc) if params[:sort_expired]
+    # @tasks = @tasks.search_title(params[:title]).search_status(params[:status]) if params[:title].present? && params[:status].present?
+    @tasks = @tasks.search_title(params[:title]) if params[:title].present?
+    @tasks = @tasks.search_status(params[:status]) if params[:status].present?
     @tasks = @tasks.reorder(priority: :asc) if params[:sort_priority]
+    @tasks = @tasks.search_label(params[:label_id]) if params[:label_id].present?
+    # @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
     @tasks = @tasks.page(params[:page]).per(6)
   end
 
@@ -28,9 +30,6 @@ class TasksController < ApplicationController
   end
 
   def edit
-
-
-    
   end
 
   def create
@@ -72,7 +71,7 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :content, :expired_at, :status, :task, :priority)
+      params.require(:task).permit(:title, :content, :expired_at, :status, :task, :priority, { label_ids: [] })
       # □なぜタスクを追加したんだろう？
     end
   end
